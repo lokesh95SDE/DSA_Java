@@ -4,7 +4,7 @@ public class TwoPointer {
 
     public static void main(String[] args) {
         int[] arr = {2, 3, 1, 2, 4, 3};
-        int dataValues[] = {2, 3, 5, 9};
+        int dataValues[] = {2, 3, 5, 9};;
 
 ////        *****TwoPoint_Algo*****
         int[] arr_tp = {1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0};
@@ -203,4 +203,73 @@ public class TwoPointer {
         }
         return result;
     }
+
+//[0,1,0,2,1,0,1,3,2,1,2,1]
+// L					   R
+// MaxL=0			       MaxR=1
+//   L++ H=1
+// NewMaxL(0,1)= 1
+// W = NewMaxL-H=0
+//
+//[0,1,0,2,1,0,1,3,2,1,2,1]
+//   L				   R
+//   MaxL=1   	       MaxR=1
+//					 R-- H=2
+//					   Max(1,2)= 2
+//					   W = Max-H=0
+//
+//[0,1,0,2,1,0,1,3,2,1,2,1]
+//   L				 R
+//   MaxL=1		     MaxR=2
+//     L++ H=0
+//   NewMaxL(0,1)= 1
+//   W = NewMaxL-H=1
+//
+//[0,1,0,2,1,0,1,3,2,1,2,1]
+//     L				 R
+//     MaxL=1	         MaxR=2
+//       L++ H=2
+//	 NewMaxL(1,2)= 2
+//	 W = NewMaxL-H=0
+//
+//[0,1,0,2,1,0,1,3,2,1,2,1]
+//       L			 R
+//       MaxL=2	     MaxR=2
+//				   R--H=1
+//					 NewMaxR(1,2)= 2
+//					 W = NewMaxR-H=1
+//
+//[0,1,0,2,1,0,1,3,2,1,2,1]
+//       L		   R
+//       MaxL=2	   MaxR=2
+//				 R-- H=2
+//				   NewMaxR(2,2)= 2
+//			       W = NewMaxR-H=0
+//
+//[0,1,0,2,1,0,1,3,2,1,2,1]
+//         L		 R
+//         MaxL=2	 MaxR=2
+//			   R-- H=2
+//				 NewMaxR(2,2)= 2
+//			     W = NewMaxR-H=0
+    static int TrappingRainWater(int[] arr){
+        int water = 0;
+        int L = 0;
+        int R = arr.length-1;
+        int MaxL = arr[L];
+        int MaxR = arr[R];
+        while(L<R){
+            if(MaxL<MaxR){
+                L++;
+                MaxL = Math.max(MaxL,arr[L]);
+                water +=MaxL-arr[L];
+            }else{
+                R--;
+                MaxR = Math.max(MaxR,arr[R]);
+                water +=MaxR-arr[R];
+            }
+        }
+        return water;
+    }
+
 }
