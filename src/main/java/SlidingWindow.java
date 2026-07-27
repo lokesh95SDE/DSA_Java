@@ -3,31 +3,27 @@ public class SlidingWindow {
     public static void main(String[] args) {
         int[] arr = {2, 3, 1, 2, 4, 3};
 ////      ****Sliding_Window_Algo****
-        maxSumFixedArray_FixedSlidingWindow(arr);
+        AverageOfmaxSumFixedArray_FixedSlidingWindow(arr,3);
         miniLengthArrayTargetedSum_VariableSlidingWindow(arr);
     }
 
     ////*************************************************************************************************************
-    static void maxSumFixedArray_FixedSlidingWindow(int[] arr) {
-        int maxSum = 0;
-        int windowSum = 0;
-        int k = 3;
-//        int maxindex =0;
-//        int[] fixedArry = new int[k];
-        for (int i = 0; i < arr.length; i++) {
-            windowSum += arr[i];  // starting-- summ is added sum from right
-            if (i >= k - 1) {
-                maxSum = Math.max(maxSum, windowSum);  // in between if maximum of all it is sotred
-                windowSum -= arr[(i - k + 1)]; //ending -- summ is subtracted from left
-            }
-//            maxindex = i;
-        }
-//        fixedArry[0]=arr[maxindex-2];
-//        fixedArry[1]=arr[maxindex-1];
-//        fixedArry[2]=arr[maxindex];
-//
-//        System.out.println(Arrays.toString(fixedArry));
-        System.out.println(windowSum);
+    static double AverageOfmaxSumFixedArray_FixedSlidingWindow(int[] nums, int k ) {
+                int maxSum = 0;
+                int curMax = 0;
+
+                for(int i =0; i<k; i++){
+                    curMax += nums[i];
+                }
+                maxSum = curMax;
+                for(int j=k; j<nums.length; j++){
+                    curMax = curMax + nums[j] - nums[j-k];
+                    if(curMax>maxSum){
+                        maxSum = curMax;
+                    }
+                }
+                return (double)maxSum/k;
+
     }
 
     static void miniLengthArrayTargetedSum_VariableSlidingWindow(int[] arr) {
@@ -47,4 +43,6 @@ public class SlidingWindow {
         System.out.println(minLength);
 
     }
+
+
 }
