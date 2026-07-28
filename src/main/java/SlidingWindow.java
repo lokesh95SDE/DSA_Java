@@ -40,6 +40,7 @@ public class SlidingWindow {
                 k++;
             }
         }
+
         System.out.println(minLength);
 
     }
