@@ -107,6 +107,36 @@ public class SlidingWindow {
         }
 
 
+    public int lengthOfLongestSubstring(String s) {
+        int left = 0;
+        int right = 0;
+        int n  = s.length();
+        int counter = 0;
+        int d =0;
+        Map<Character, Integer> map = new HashMap<>();
+        while(right<n){
+            char c = s.charAt(right);                           //a     b   c   a       b    c   b
+            map.put(c,map.getOrDefault(c,0)+1);      //a=1   b=1 c=1 a=2     b=2  c=2 b=2
+            if(map.get(c)>1){                                   //f     f   f   tr      tr   tr  tr
+                counter++;                                      //              count=1 1    1    1
+            }
+            right++;                                            //r=1   r=2 r=3 r=4     r=5   r=6 r=7
+            while(counter>0){                                   //f     f   f   tr      tr    tr  tr
+                char ch = s.charAt(left);                       //              a       b     c  b
+                if(map.get(ch)>1){                              //              tr      tr    tr
+                    counter--;    }                             //             count=0   0    0
+                map.put(ch, map.get(ch)-1);                     //              a=1     b=1   c=1
+                left++     ;                                    //              l=1     l=2   l=3
+            }
+            d = Math.max(d,right-left);                         //
+        }
+        return d;
+
+    }
+
+
+
+
 
 
 
