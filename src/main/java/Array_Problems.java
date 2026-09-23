@@ -1,4 +1,7 @@
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 //InnerClass is an inner class, and it can access all members (including private) of its enclosing class OuterClass. It requires an instance of OuterClass to be instantiated.
 //Because InnerClass is private, it cannot be instantiated outside the context of OuterClass. Any attempt to instantiate it from outside OuterClass (e.g., from another class) would result in a compilation error due to InnerClass being inaccessible due to its private access modifier.
 public class Array_Problems {
@@ -8,14 +11,14 @@ public class Array_Problems {
         int dataValues[] = {3,8,9,2,7,1};
         int dataValues1[] = {8,5,9,1,2,3};
 //////        *****Sorting_BrutForce_Algo*****
-//        bubbleSortins2(dataValues);     // need to move bigger number to end of the array by comparing [j]>[j+1]
-//        selectionSorting(arr);        // need to find min number in array and swap it into first index and repeat the process for next index
+        bubbleSortins2(dataValues);     // need to move bigger number to end of the array by comparing [j]>[j+1]
+        selectionSorting(arr);        // need to find min number in array and swap it into first index and repeat the process for next index
         insertionSorting(dataValues1);
 //
 //////      ****Kadane_Algo****
 ////        maxSubArray(arr);
 //
-//////      ****Greedy_Algo*****
+//////      ****Greedy_Algo*****--
 //        int[] arr_price = {7, 1, 5, 3, 6, 4};
 //        int[] arr_majo = {7, 1,1,1, 5, 3,3,4,2,1, 4};
 //        buyandSell_I_Greedy(arr_price);
@@ -63,7 +66,7 @@ public class Array_Problems {
         System.out.println(Arrays.toString(dataValues));
     }
     /// here making into O(n) by skipping the already sorted values
-    public static void bubbleSortins2(int[] dataValues){ //{3,8,9,2,7,1}
+    public static void bubbleSortins2(int[] dataValues){ //{3, 8,9,2,7,1}
         int n = dataValues.length; //6
         boolean swapped;
         for(int i=1; i<n-1;i++){//(6-1=5)
@@ -133,23 +136,23 @@ public class Array_Problems {
 //     j i
 // 0 1 2 3
 //{5,8,9,9,4,3,1}
-//   j   i
+//   j   elevalue=[i]=2
 // 0 1 2 3
 //{5,8,8,9,4,3,1}
-// j     i
+// j      elevalue=[i]=2
 // 0 1 2 3
 //{5,5,8,9,4,3,1}
-// j     i
+// j      elevalue=[i]=2
 // 0 1 2 3
 //{2,5,8,9,4,3,1}
 
     public static void insertionSorting(int[] dataValues){//{3,8,9,2,7,1}
         int valueCount = dataValues.length;
-        for(int i=1; i<valueCount;i++){
+        for(int i=1; i<valueCount;i++){    //n=n
             // pick a card
             int eleValue = dataValues[i];
             int j =i-1;
-            while (j>=0 && dataValues[j]>eleValue){
+            while (j>=0 && dataValues[j]>eleValue){    //n=n
                 dataValues[j+1]=dataValues[j];
                 j--;
             }
@@ -346,4 +349,46 @@ public class Array_Problems {
     }
 
 
-    }
+        public void nearestNumberToZero() {
+            int[] value = {-4,1,3,4,6,10};
+            int closest = value[0];
+// 		Find the nearest value to 0
+            int n = value.length;
+            for(int v : value){
+                int currentDistance = Math.abs(v);
+                int closestDistance = Math.abs(closest);
+                if(currentDistance<closestDistance){
+                    closest=v;
+                }else if(currentDistance == closestDistance && v>closest)
+                    closest=v;
+            }
+            System.out.println(closest);
+
+        }
+
+//    3rd non repeing number
+        public static int givenIndexNonRepetingNumber(int indexed){
+            int[] value = {1,3,4,1,2,3,4,5,6};
+            Map<Integer, Integer> occurance = new LinkedHashMap<>();
+            int n = value.length;
+            for(int v : value){
+                occurance.put(v,occurance.getOrDefault(v,0)+1);
+            }
+            int index = 0;
+            for(Map.Entry<Integer, Integer> result : occurance.entrySet()){
+                if(result.getValue()==1){
+                    index++;
+                    if(index==indexed){
+                        return result.getKey();
+                    }
+
+                }
+            }
+            return -1;
+        }
+
+
+
+
+}
+

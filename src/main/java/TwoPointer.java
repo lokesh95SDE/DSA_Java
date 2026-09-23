@@ -183,9 +183,7 @@ public class TwoPointer {
                 } else if (sum > 0) {
                     k--;
                 } else {
-
                     result.add(Arrays.asList(nums[i], nums[j], nums[k]));
-
                     j++;
                     k--;
 
@@ -270,7 +268,6 @@ public class TwoPointer {
             }
         }
         return water;
-
     }
 
 }
